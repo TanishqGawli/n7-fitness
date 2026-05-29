@@ -16,8 +16,14 @@ const equipment = [
   { name: "SMITH / SQUAT RACK COMBO", folder: "smithmachine" },
 ];
 
+interface EquipmentItem {
+  name: string;
+  folder: string;
+}
+
 export default function Equipment() {
-  const [selected, setSelected] = useState(null);
+
+  const [selected, setSelected] = useState<EquipmentItem | null>(null);
 
   const { scrollYProgress } = useScroll();
 
@@ -26,7 +32,10 @@ export default function Equipment() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
 
   return (
-    <section id="equipment" className="relative overflow-hidden bg-black px-6 py-32 text-white">
+    <section
+      id="equipment"
+      className="relative overflow-hidden bg-black px-6 py-32 text-white"
+    >
 
       {/* SOFT BACKGROUND GLOW */}
       <div className="absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600/10 blur-[220px]" />
@@ -49,7 +58,8 @@ export default function Equipment() {
           </h2>
 
           <p className="mx-auto mt-8 max-w-3xl text-lg text-gray-400">
-            World-class equipment designed for elite strength, precision, and transformation.
+            World-class equipment designed for elite strength, precision,
+            and transformation.
           </p>
         </motion.div>
 
@@ -76,7 +86,7 @@ export default function Equipment() {
             >
 
               {/* GLOW BORDER EFFECT */}
-              <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-red-500/20 via-transparent to-transparent opacity-60 group-hover:opacity-100 transition" />
+              <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-red-500/20 via-transparent to-transparent opacity-60 transition group-hover:opacity-100" />
 
               {/* IMAGE */}
               <div className="relative overflow-hidden rounded-[40px]">
@@ -119,14 +129,15 @@ export default function Equipment() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-xl p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6 backdrop-blur-xl"
         >
           <motion.div
             initial={{ scale: 0.9, y: 80, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="relative max-h-[95vh] w-full max-w-6xl overflow-y-auto rounded-[40px] bg-zinc-950 p-8 border border-white/10"
+            className="relative max-h-[95vh] w-full max-w-6xl overflow-y-auto rounded-[40px] border border-white/10 bg-zinc-950 p-8"
           >
+
             {/* CLOSE */}
             <button
               onClick={() => setSelected(null)}
@@ -142,28 +153,35 @@ export default function Equipment() {
 
             {/* IMAGES */}
             <div className="grid gap-6 md:grid-cols-2">
+
               <motion.img
                 whileHover={{ scale: 1.02 }}
                 src={`/equipment/${selected.folder}/1.jpg`}
+                alt={selected.name}
                 className="rounded-[30px]"
               />
 
               <motion.img
                 whileHover={{ scale: 1.02 }}
                 src={`/equipment/${selected.folder}/2.jpg`}
+                alt={selected.name}
                 className="rounded-[30px]"
               />
+
             </div>
 
             {/* VIDEO */}
             <div className="mt-8">
               <video controls className="w-full rounded-[30px]">
+
                 <source
                   src={`/equipment/${selected.folder}/video.mp4`}
                   type="video/mp4"
                 />
+
               </video>
             </div>
+
           </motion.div>
         </motion.div>
       )}
