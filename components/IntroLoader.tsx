@@ -1,21 +1,14 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
-export default function IntroLoader() {
+interface IntroLoaderProps {
+  loading: boolean;
+}
 
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-
-  }, []);
+export default function IntroLoader({
+  loading,
+}: IntroLoaderProps) {
 
   return (
 
